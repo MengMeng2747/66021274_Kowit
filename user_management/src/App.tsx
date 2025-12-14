@@ -15,7 +15,7 @@ const Sidebar = () => {
         <div className="logo">
           <Users size={28} />
         </div>
-      </div> asdasdasdasdasdasd
+      </div>
 
       <nav className="sidebar-nav">
         <Link to="/" className={`nav-item ${isActive("/")}`}>
