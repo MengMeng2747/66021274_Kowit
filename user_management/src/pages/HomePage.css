@@ -1,0 +1,116 @@
+/* ================================================= */
+/* Profile Card                                      */
+/* ================================================= */
+.profile-card {
+  background-color: #ffffff;
+  border-radius: 18px;
+  padding: 1.4rem;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 220px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* แถบ Gradient ด้านบน */
+.profile-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 6px;
+  width: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.profile-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.1);
+}
+
+/* ================================================= */
+/* Header                                            */
+/* ================================================= */
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.profile-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  font-weight: 700;
+  box-shadow: 0 6px 14px rgba(102, 126, 234, 0.4);
+}
+
+.profile-info h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.username {
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+/* ================================================= */
+/* Body                                              */
+/* ================================================= */
+.profile-body p {
+  font-size: 0.9rem;
+  color: #475569;
+  margin-bottom: 0.4rem;
+}
+
+.profile-body strong {
+  color: #1e293b;
+}
+
+/* ================================================= */
+/* Footer                                            */
+/* ================================================= */
+.profile-footer {
+  margin-top: auto;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* ================================================= */
+/* Responsive                                        */
+/* ================================================= */
+@media (max-width: 640px) {
+  .profile-card {
+    min-height: auto;
+  }
+
+  .profile-footer {
+    justify-content: center;
+  }
+
+  .action-btn.view {
+    width: 100%;
+  }
+}
+
+.user-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.2rem;   /* 👈 ตรงนี้คือระยะห่างของแต่ละการ์ด */
+  margin-top: 1rem;
+  padding: 0;
+}

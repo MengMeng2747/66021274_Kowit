@@ -1,0 +1,299 @@
+/* ================================================= */
+/* 1. Global Reset & Base                            */
+/* ================================================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #f3f4f6; /* ปรับสีพื้นหลังให้ดูสะอาดตาขึ้น (ของเดิมสีน้ำตาล) */
+  color: #334155;
+  height: 100vh;       /* ✅ บังคับความสูงเท่าหน้าจอ */
+  overflow: hidden;    /* ✅ ป้องกัน Scrollbar ของ Browser (ให้ไป Scroll ข้างในแทน) */
+}
+
+/* ================================================= */
+/* 2. App Layout                                     */
+/* ================================================= */
+.app-layout {
+  display: flex;
+  height: 100vh;       /* ✅ เต็มความสูงหน้าจอ */
+  width: 100vw;        /* ✅ เต็มความกว้าง */
+  background-color: #ffffff;
+}
+
+/* ================================================= */
+/* 3. Sidebar                                        */
+/* ================================================= */
+.sidebar {
+  width: 70px;
+  background: linear-gradient(180deg, #4c5270 0%, #3a3f5c 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem 0;
+  
+  /* ✅ Fix Sidebar ให้อยู่กับที่ */
+  position: fixed; 
+  height: 100vh;
+  left: 0;
+  top: 0;
+  z-index: 100;
+  transition: all 0.3s ease;
+}
+
+.sidebar-header {
+  margin-bottom: 2rem;
+}
+
+.logo {
+  width: 45px;
+  height: 45px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.sidebar-nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0 0.75rem;
+}
+
+.nav-item {
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #94a3b8;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  position: relative;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.nav-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.nav-item.active {
+  background-color: rgba(102, 126, 234, 0.2);
+  color: #667eea;
+  box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+}
+
+/* Tooltip */
+.nav-tooltip {
+  position: absolute;
+  left: 60px;
+  background-color: #1e293b;
+  color: white;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  z-index: 1000;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+}
+
+.nav-item:hover .nav-tooltip {
+  opacity: 1;
+}
+
+.sidebar-footer {
+  padding: 0 0.75rem;
+  margin-top: auto;
+}
+
+/* ================================================= */
+/* 4. Main Content Area                              */
+/* ================================================= */
+.main-content {
+  flex: 1;
+  margin-left: 70px; /* ✅ เว้นที่ให้ Sidebar */
+  display: flex;
+  flex-direction: column;
+  height: 100vh;     /* ✅ สูงเต็มจอ */
+  overflow: hidden;  /* ✅ ซ่อนส่วนเกิน เพื่อให้ Scroll เฉพาะด้านใน */
+}
+
+/* ================================================= */
+/* 5. Top Bar                                        */
+/* ================================================= */
+.topbar {
+  height: 80px;
+  flex-shrink: 0;    /* ✅ ห้าม Topbar หดตัว */
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;   /* ปรับ Padding ให้สวยงาม */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  z-index: 50;
+  /* Sticky ไม่จำเป็นต้องใช้ถ้า Parent (main-content) fix height แล้ว */
+}
+
+.topbar-left h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.search-input {
+  width: 250px;
+  padding: 0.6rem 1rem;
+  border: 1px solid #e2e8f0; /* ปรับสีขอบให้อ่อนลง */
+  border-radius: 20px;       /* ทำให้มนขึ้น */
+  font-size: 0.9rem;
+  background-color: #f8fafc;
+  transition: all 0.3s;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #667eea;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.icon-btn {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #64748b;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.icon-btn:hover {
+  background-color: #f1f5f9;
+  color: #667eea;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+
+.user-profile:hover {
+  background-color: #f8fafc;
+}
+
+.user-profile span {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #334155;
+}
+
+.avatar {
+  width: 38px;
+  height: 38px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* ================================================= */
+/* 6. Page Container (ส่วนที่ Scroll ได้)             */
+/* ================================================= */
+.page-container {
+  flex: 1;           /* ✅ ยืดให้เต็มพื้นที่ที่เหลือ */
+  padding: 2rem;
+  overflow-y: auto;  /* ✅ ScrollBar จะอยู่ที่นี่ที่เดียว */
+  background-color: #f8fafc; /* สีพื้นหลังของเนื้อหา */
+}
+
+/* ================================================= */
+/* 7. Scrollbar Styling                              */
+/* ================================================= */
+.page-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.page-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.page-container::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+.page-container::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* ================================================= */
+/* 8. Responsive Design                              */
+/* ================================================= */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 60px;
+  }
+
+  .main-content {
+    margin-left: 60px;
+  }
+
+  .topbar {
+    padding: 0 1rem;
+  }
+
+  .topbar-left h1 {
+    font-size: 1.2rem;
+  }
+
+  .search-input {
+    width: 140px;
+  }
+
+  .user-profile span {
+    display: none;
+  }
+
+  .page-container {
+    padding: 1rem;
+  }
+}
